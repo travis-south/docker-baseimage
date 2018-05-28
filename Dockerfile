@@ -21,17 +21,18 @@ RUN groupadd -g ${PGID} daker && \
     useradd -u ${PUID} -g daker -m daker -G docker_env && \
     usermod -p "*" daker
 
+# Run updates
+RUN apt-get update -y && apt-get upgrade -y
+
 # Setup the entrypoint
 RUN mkdir -p /var/www/app
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY welcome.sh /welcome.sh
+RUN chmod +x /entrypoint.sh /welcome.sh
 VOLUME ["/var/www/app"]
 WORKDIR /var/www/app
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["whoami"]
-
-# Run updates
-RUN apt-get update -y && apt-get upgrade -y
+ENTRYPOINT ["/sbin/my_init", "--quiet", "--skip-startup-files", "--", "/entrypoint.sh"]
+CMD ["/welcome.sh"]
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
