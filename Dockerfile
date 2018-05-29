@@ -34,5 +34,10 @@ WORKDIR /var/www/app
 ENTRYPOINT ["/sbin/my_init", "--quiet", "--skip-startup-files", "--", "/entrypoint.sh"]
 CMD ["/welcome.sh"]
 
+# Create workspace folder for mounting
+USER daker
+RUN mkdir -p $HOME/.docker-workspace
+
 # Clean up APT when done.
+USER root
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
