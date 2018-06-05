@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-cd /var/www/app
 
 groupmod -g ${PGID} daker
 usermod -u ${PUID} daker
