@@ -2,7 +2,7 @@
 cd /var/www/app
 
 groupmod -g ${PGID} daker
-usermod -u ${PUID}
+usermod -u ${PUID} daker
 usermod -p "*" daker
 mkdir -p /home/daker/.docker-workspace
 chown -R daker:daker /home/daker/.docker-workspace
