@@ -40,4 +40,4 @@ RUN mkdir -p $HOME/.docker-workspace
 
 # Clean up APT when done.
 USER root
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/lastlog /var/log/faillog
